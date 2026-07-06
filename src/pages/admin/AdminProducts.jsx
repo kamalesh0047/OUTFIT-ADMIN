@@ -318,13 +318,6 @@ export default function AdminProducts() {
                   </div>
 
                   <div className="field">
-                    <label style={{ display: 'flex', alignItems: 'center', gap: '.5rem', cursor: 'pointer' }}>
-                      <input type="checkbox" checked={form.onSale} onChange={e => setF('onSale', e.target.checked)} />
-                      Sale
-                    </label>
-                  </div>
-
-                  <div className="field">
                     <label>Stock quantity</label>
                     <input type="number" value={form.stock} onChange={e => setF('stock', e.target.value)} placeholder="0" />
                   </div>
