@@ -318,11 +318,6 @@ export default function AdminProducts() {
                   </div>
 
                   <div className="field">
-                    <label>Original price (M.R.P.)</label>
-                    <input type="number" value={form.originalPrice} onChange={e => setF('originalPrice', e.target.value)} placeholder="999" />
-                  </div>
-
-                  <div className="field">
                     <label style={{ display: 'flex', alignItems: 'center', gap: '.5rem', cursor: 'pointer' }}>
                       <input type="checkbox" checked={form.onSale} onChange={e => setF('onSale', e.target.checked)} />
                       Sale
