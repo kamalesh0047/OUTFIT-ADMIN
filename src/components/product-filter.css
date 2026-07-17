@@ -1,0 +1,341 @@
+.product-filter {
+  padding: 20px;
+  background: var(--bg);
+  border-radius: 8px;
+  min-width: 250px;
+}
+
+.filter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+.filter-header h3 {
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0;
+}
+
+.filter-reset {
+  padding: 4px 8px;
+  font-size: 12px;
+  color: var(--muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+
+.filter-reset:hover {
+  color: var(--ink);
+}
+
+.filter-section {
+  margin-bottom: 16px;
+}
+
+.filter-toggle {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  font-size: 14px;
+  font-weight: 500;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--ink);
+  transition: color 0.2s;
+}
+
+.filter-toggle:hover {
+  color: var(--ink-soft);
+}
+
+.filter-toggle svg {
+  transition: transform 0.3s;
+}
+
+.filter-toggle svg.expanded {
+  transform: rotate(180deg);
+}
+
+.filter-options {
+  padding: 12px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.filter-options.size-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.filter-checkbox,
+.filter-size {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.filter-checkbox input,
+.filter-size input {
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+  accent-color: var(--ink);
+}
+
+.filter-checkbox span,
+.filter-size span {
+  color: var(--ink-soft);
+  transition: color 0.2s;
+}
+
+.filter-checkbox:hover span,
+.filter-size:hover span {
+  color: var(--ink);
+}
+
+.filter-size {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  gap: 4px;
+}
+
+.filter-size input:checked + span,
+.filter-checkbox input:checked + span {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.price-slider-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 12px 0;
+}
+
+.price-inputs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.price-input {
+  flex: 1;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.price-input:focus {
+  outline: none;
+  border-color: var(--ink);
+}
+
+.price-separator {
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.range-slider {
+  position: relative;
+  height: 6px;
+  margin: 8px 0;
+}
+
+.range-input {
+  position: absolute;
+  width: 100%;
+  height: 6px;
+  top: 0;
+  background: none;
+  pointer-events: none;
+  -webkit-appearance: none;
+  appearance: none;
+  z-index: 5;
+}
+
+.range-input-min {
+  z-index: 5;
+}
+
+.range-input-max {
+  z-index: 4;
+}
+
+.range-input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--ink);
+  cursor: pointer;
+  pointer-events: auto;
+  box-shadow: 0 2px 4px rgba(43, 37, 32, 0.2);
+}
+
+.range-input::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--ink);
+  cursor: pointer;
+  pointer-events: auto;
+  border: none;
+  box-shadow: 0 2px 4px rgba(43, 37, 32, 0.2);
+}
+
+.range-track {
+  position: absolute;
+  width: 100%;
+  height: 6px;
+  top: 0;
+  background: var(--line);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.range-fill {
+  position: absolute;
+  height: 100%;
+  background: var(--ink);
+  border-radius: 3px;
+}
+
+.color-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  padding: 12px 0;
+}
+
+.color-swatch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.color-input {
+  display: none;
+}
+
+.swatch {
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+  border: 2px solid var(--line);
+  transition: border-color 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+
+.color-input:checked ~ .swatch {
+  border-color: var(--ink);
+  box-shadow: 0 0 0 2px var(--surface), 0 0 0 4px var(--ink);
+}
+
+.swatch[data-color="black"] { background-color: #000; }
+.swatch[data-color="white"] { background-color: F5F5DCf; border-color: #ccc; }
+.swatch[data-color="gray"] { background-color: #808080; }
+.swatch[data-color="charcoal"] { background-color: #36454f; }
+
+.swatch[data-color="red"] { background-color: F5F5DC0000; }
+.swatch[data-color="crimson"] { background-color: #dc143c; }
+.swatch[data-color="scarlet"] { background-color: F5F5DC2400; }
+.swatch[data-color="maroon"] { background-color: #800000; }
+
+.swatch[data-color="pink"] { background-color: F5F5DCb6c1; }
+.swatch[data-color="rose"] { background-color: F5F5DC007f; }
+.swatch[data-color="salmon"] { background-color: #fa8072; }
+.swatch[data-color="coral"] { background-color: F5F5DC7f50; }
+
+.swatch[data-color="orange"] { background-color: F5F5DC8c00; }
+.swatch[data-color="apricot"] { background-color: #fbaa34; }
+.swatch[data-color="peach"] { background-color: F5F5DCcba4; }
+.swatch[data-color="tan"] { background-color: #d2b48c; }
+
+.swatch[data-color="yellow"] { background-color: F5F5DCff00; }
+.swatch[data-color="gold"] { background-color: #daa520; }
+.swatch[data-color="khaki"] { background-color: #f0e68c; }
+.swatch[data-color="beige"] { background-color: #f5f1e8; }
+
+.swatch[data-color="green"] { background-color: #228b22; }
+.swatch[data-color="olive"] { background-color: #6b7d6b; }
+.swatch[data-color="sage"] { background-color: #9dc183; }
+.swatch[data-color="mint"] { background-color: #98ff98; }
+
+.swatch[data-color="teal"] { background-color: #008080; }
+.swatch[data-color="cyan"] { background-color: #00ffff; }
+.swatch[data-color="navy"] { background-color: #001f3f; }
+.swatch[data-color="blue"] { background-color: #1e90ff; }
+
+.swatch[data-color="purple"] { background-color: #9370db; }
+.swatch[data-color="indigo"] { background-color: #4b0082; }
+.swatch[data-color="violet"] { background-color: #ee82ee; }
+.swatch[data-color="plum"] { background-color: #dda0dd; }
+
+.swatch[data-color="brown"] { background-color: #8b7355; }
+.swatch[data-color="chocolate"] { background-color: #d2691e; }
+.swatch[data-color="coffee"] { background-color: #6f4e37; }
+
+.swatch[data-color="silver"] { background-color: #c0c0c0; }
+.swatch[data-color="ivory"] { background-color: F5F5DCfff0; border-color: #ccc; }
+.swatch[data-color="cream"] { background-color: F5F5DCfdd0; }
+.swatch[data-color="nude"] { background-color: #e8bfaa; }
+
+.color-label {
+  font-size: 12px;
+  color: var(--ink-soft);
+  text-align: center;
+  transition: color 0.2s;
+  font-weight: 500;
+}
+
+.color-input:checked ~ .color-label {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.color-swatch:hover .color-label {
+  color: var(--ink);
+}
+
+@media (max-width: 768px) {
+  .product-filter {
+    min-width: auto;
+    margin-bottom: 20px;
+  }
+
+  .filter-options.size-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .color-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

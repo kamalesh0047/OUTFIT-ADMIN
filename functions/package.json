@@ -1,0 +1,15 @@
+{
+  "name": "outfit-payments",
+  "description": "Razorpay payment functions for OUTFIT",
+  "engines": {
+    "node": "20"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "firebase-admin": "^12.6.0",
+    "firebase-functions": "^6.1.0",
+    "razorpay": "^2.9.4"
+  },
+  "private": true
+}
