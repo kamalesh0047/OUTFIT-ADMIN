@@ -8,6 +8,7 @@ import './navbar.css'
 
 const LINKS = [
   { to:'/', label:'Home' },
+  { to:'/shop', label:'Shop All' },
   { to:'/category/shirts', label:'Men', submenu: [
     { to:'/category/shirts', label:'Shirts & T-Shirts' },
     { to:'/category/pants', label:'Pants & Jeans' }
@@ -57,9 +58,7 @@ export default function Navbar() {
     <header className={'nav' + (scrolled ? ' nav--scrolled' : '')}>
       <div className="container nav__inner">
         <button className="nav__burger" aria-label="Menu" onClick={()=>setMenuOpen(true)}><Menu size={22}/></button>
-       
 
-        {/* ── DESKTOP NAV ── */}
         <nav className="nav__links" aria-label="Primary">
           <NavLink to="/" className={({isActive})=>'nav__link'+(isActive?' is-active':'')}>Home</NavLink>
           {LINKS.slice(1).map((l,i)=>(
@@ -88,7 +87,6 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* ── SEARCH OVERLAY ── */}
       <AnimatePresence>
         {searchOpen && (
           <motion.div className="nav__search" initial={{opacity:0,y:-12}} animate={{opacity:1,y:0}} exit={{opacity:0,y:-12}} transition={{duration:.3,ease:[0.22,0.61,0.36,1]}}>
@@ -107,7 +105,6 @@ export default function Navbar() {
         )}
       </AnimatePresence>
 
-      {/* ── MOBILE MENU ── */}
       <AnimatePresence>
         {menuOpen && (
           <>
@@ -126,7 +123,6 @@ export default function Navbar() {
               exit={{ x: "-100%" }}
               transition={{ type: "tween", duration: 0.35, ease: [0.22, 0.61, 0.36, 1] }}
             >
-              {/* head */}
               <div className="nav__mobile-head">
                 <span className="nav__logo">
                   <img
@@ -140,7 +136,6 @@ export default function Navbar() {
                 </button>
               </div>
 
-              {/* links with accordion dropdowns */}
               <nav className="nav__mobile-nav">
                 {LINKS.map((l, i) => (
                   l.submenu ? (
@@ -161,7 +156,6 @@ export default function Navbar() {
                             exit={{ height: 0, opacity: 0 }}
                             transition={{ duration: 0.28, ease: [0.22, 0.61, 0.36, 1] }}
                           >
-                            {/* "View All" link for the parent category */}
                             <NavLink to={l.to} className="nav__mobile-sublink" onClick={closeMobile}>
                               View All {l.label}
                             </NavLink>
@@ -182,7 +176,6 @@ export default function Navbar() {
                 ))}
               </nav>
 
-              {/* bottom actions */}
               <div className="nav__mobile-foot">
                 <Link to="/wishlist" className="nav__mobile-action" onClick={closeMobile}>
                   <Heart size={18} /> Wishlist {wCount > 0 && <span className="nav__mobile-count">{wCount}</span>}
