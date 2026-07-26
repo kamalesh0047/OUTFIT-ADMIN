@@ -120,7 +120,15 @@ export function computeAnalytics(products = [], orders = []) {
 }
 
 // Update an order's status directly in Firestore (reflects on storefront too)
+//
+// Tracks ids this admin session just wrote so the live listener below
+// doesn't also toast "cancelled by customer" for the admin's own change —
+// changeStatus() in AdminOrders.jsx already emits its own toast for that.
+const localOrderWrites = new Set();
+
 export function updateOrderStatus(id, status) {
+  localOrderWrites.add(id);
+  setTimeout(() => localOrderWrites.delete(id), 5000);
   return updateDoc(doc(db, "orders", id), { status });
 }
 
@@ -133,8 +141,9 @@ export function AdminDataProvider({ children }) {
   const [ordersLoading, setOrdersLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // remembers order ids we've already seen so we can toast only genuinely new ones
-  const seenOrderIds = useRef(null);
+  // remembers the last-seen status per order id so we can toast on genuinely
+  // new orders AND on a Pending -> Cancelled transition (customer cancelling)
+  const prevOrderStatus = useRef(null);
 
   useEffect(() => {
     const unsubProducts = onSnapshot(
@@ -157,14 +166,27 @@ export function AdminDataProvider({ children }) {
           .map((x) => normalizeOrder(x.id, x.data()))
           .sort((a, b) => (b.createdAt?.getTime() || 0) - (a.createdAt?.getTime() || 0));
 
-        // Notify on new orders — but not on the very first snapshot (existing data)
-        if (seenOrderIds.current === null) {
-          seenOrderIds.current = new Set(list.map((o) => o.id));
+        // Notify on new orders and on cancellations — but not on the very
+        // first snapshot (that's just existing data loading in).
+        if (prevOrderStatus.current === null) {
+          prevOrderStatus.current = new Map(list.map((o) => [o.id, o.status]));
         } else {
-          const fresh = list.filter((o) => !seenOrderIds.current.has(o.id));
-          fresh.forEach((o) => {
-            seenOrderIds.current.add(o.id);
-            emitToast(`New order from ${o.userName} — ₹ ${o.total.toLocaleString("en-IN")}`);
+          list.forEach((o) => {
+            const prevStatus = prevOrderStatus.current.get(o.id);
+
+            if (prevStatus === undefined) {
+              emitToast(`New order from ${o.userName} — ₹ ${o.total.toLocaleString("en-IN")}`);
+            } else if (prevStatus !== "Cancelled" && o.status === "Cancelled") {
+              // Skip if this admin session just made the change itself —
+              // changeStatus() in AdminOrders.jsx already toasted for it.
+              if (localOrderWrites.has(o.id)) {
+                localOrderWrites.delete(o.id);
+              } else {
+                emitToast(`Order #${o.id.slice(0, 8).toUpperCase()} was cancelled by ${o.userName}`);
+              }
+            }
+
+            prevOrderStatus.current.set(o.id, o.status);
           });
         }
 
